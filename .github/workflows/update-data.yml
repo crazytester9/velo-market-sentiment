@@ -1,0 +1,43 @@
+name: Update Velo Market Data
+
+on:
+  schedule:
+    - cron: '0 */1 * * *'  # Läuft jede Stunde
+  workflow_dispatch:  # Ermöglicht manuelle Ausführung
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install selenium requests webdriver-manager pandas
+          
+      - name: Install Chrome
+        run: |
+          wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+          echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+          
+      - name: Run scraper
+        run: |
+          mkdir -p velo-market-sentiment-source/public
+          python velo-market-sentiment-source/scraper_worker.py
+        
+      - name: Commit and push if changed
+        run: |
+          git config --global user.name 'GitHub Actions Bot'
+          git config --global user.email 'actions@github.com'
+          git add velo-market-sentiment-source/public/data.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update market data" && git push) 
