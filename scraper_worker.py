@@ -285,7 +285,7 @@ def scrape_velo_data():
             return False
         
         # Determine output path - in production this would be in the public folder
-        output_path = os.path.join("public", "data.json")
+        output_path = os.path.join("velo-market-sentiment-source", "public", "data.json")
         
         # Save data to JSON
         if not save_data_to_json(chart_data, metrics, output_path):
