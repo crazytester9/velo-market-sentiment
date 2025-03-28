@@ -30,10 +30,17 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y google-chrome-stable
           
+      - name: Debug file location
+        run: |
+          pwd
+          ls -la
+          echo "Current directory contents:"
+          find . -maxdepth 2 -type f | sort
+          
       - name: Run scraper
         run: |
           mkdir -p velo-market-sentiment-source/public
-          python velo-market-sentiment-source/scraper_worker.py
+          python scraper_worker.py
         
       - name: Commit and push if changed
         run: |
