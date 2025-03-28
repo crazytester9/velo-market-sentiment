@@ -1,0 +1,18 @@
+{
+  "timestamp": 1711662000000,
+  "datetime": "2025-03-28T18:00:00.000Z",
+  "strategic_bias": 68.5,
+  "directional_bias": 1.2,
+  "green_percentage": 68.5,
+  "quadrant": "Momentum Long Only",
+  "data": {
+    "-9%": { "value": 10, "color": "red", "is_positive": false },
+    "-6%": { "value": 15, "color": "red", "is_positive": false },
+    "-3%": { "value": 20, "color": "red", "is_positive": false },
+    "<0%": { "value": 25, "color": "red", "is_positive": false },
+    ">0%": { "value": 120, "color": "green", "is_positive": true },
+    "+3%": { "value": 70, "color": "green", "is_positive": true },
+    "+6%": { "value": 40, "color": "green", "is_positive": true },
+    "+9%": { "value": 30, "color": "green", "is_positive": true }
+  }
+}
